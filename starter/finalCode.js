@@ -25,13 +25,7 @@ function showUserFactors(type, value) {
   }
   for (let planet in gravityFactors) {
     console.log(
-      "Your",
-      `${type}`,
-      "on",
-      `${planet}`,
-      "is",
-      `${results[planet]}`,
-      `${measurement}`
+      `Your ${type} on ${planet} is ${results[planet]} ${measurement}`
     );
   }
 }
