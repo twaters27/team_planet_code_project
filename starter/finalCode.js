@@ -1,4 +1,4 @@
-const prompt = require("node-sync")();
+const prompt = require("prompt-sync");
 
 const gravityFactors = require("./utils/earthGravityFactors.js");
 
@@ -23,4 +23,17 @@ function showUserFactors(type, value) {
       measurement = "units";
       break;
   }
+  for (let planet in gravityFactors) {
+    console.log(
+      "Your",
+      `${type}`,
+      "on",
+      `${planet}`,
+      "is",
+      `${results[planet]}`,
+      `${measurement}`
+    );
+  }
 }
+
+global.showUserFactors = showUserFactors;
