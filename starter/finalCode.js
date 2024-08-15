@@ -14,8 +14,13 @@ function showUserFactors(type, value) {
     case "jump":
       measurement = "cm";
       break;
-    
+
+    case "weight":
+      measurement = "kg";
+      break;
+
     default:
-      measurement
+      measurement = "units";
+      break;
   }
 }
