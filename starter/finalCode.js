@@ -50,3 +50,4 @@ function getUserInput() {
 global.getUserInput = getUserInput;
 
 global.showUserFactors = showUserFactors;
+
