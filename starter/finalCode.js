@@ -57,13 +57,6 @@ function getUserInput() {
   console.log("How much of the measurement? Please enter a number.");
   let userValue = prompt(">> ").trim().toLowerCase();
   //   let isTrue = true;
-  while (true) {
-    if (userType === "pushup" || "jump" || "weight") {
-      break;
-    } else {
-      console.error("Please try again.");
-    }
-  }
 }
 showUserFactors(userType, userPlanet, userSystem, userValue);
 
