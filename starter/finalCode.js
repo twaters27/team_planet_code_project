@@ -8,12 +8,14 @@ function showUserFactors(
   //   userMeasurement,
   planet,
   system,
-  value
+  value,
+  measurement
 ) {
+  console.log(value);
   let results = {};
   let alienResults = {};
 
-  let measurement;
+  // let measurement;
   if (planet === "earth") {
     for (let planet in gravityFactors) {
       results[planet] = parseFloat((gravityFactors[planet] * value).toFixed(2));
@@ -26,21 +28,32 @@ function showUserFactors(
     }
   }
 
-  switch (type) {
-    case "jump":
-      measurement = "cm";
-      break;
+  // switch (type) {
 
-    case "weight":
-      measurement = "kg";
-      break;
+  //   case "jump":
+  //     measurement = "cm";
+  //     break;
 
-    default:
-      measurement = "units";
-      break;
-  }
-  for (let planet in gravityFactors) {
-    console.log(`Your ${type} on ${planet} is ${planet[planet]} ${system}`);
+  //   case "weight":
+  //     measurement = "kg";
+  //     break;
+
+  //   default:
+  //     measurement = "units";
+  //     break;
+  // }
+  if (planet === "alien") {
+    for (let planet in alienFactors) {
+      console.log(
+        `Your ${type} on ${planet} is ${alienResults[planet]} ${measurement}`
+      );
+    }
+  } else if (planet === "earth") {
+    for (let planet in gravityFactors) {
+      console.log(
+        `Your ${type} on ${planet} is ${results[planet]} ${measurement}`
+      );
+    }
   }
 }
 
@@ -58,58 +71,80 @@ function getUserInput() {
   //   //   let isTrue = true;
   let userType;
   let userPlanet;
-  let userSystem;
+  let userSystem = "reps";
   let userValue;
+  let userMeasurement = "reps";
   typeLoop: while (true) {
-    userType = prompt("Please select either weight, jump or pushups")
+    userType = prompt("Please select either weight, jump or pushups. >>")
       .trim()
       .toLowerCase();
     for (var i = 0; i < vaildWords.length; i++) {
       if (userType == vaildWords[i]) {
         break typeLoop;
-      } else {
-        console.error("try again");
       }
     }
+    console.log("try again");
+  }
+  if (userType === "pushups") {
   }
   planetLoop: while (true) {
-    userPlanet = prompt("Please select earth or alien").trim().toLowerCase();
+    userPlanet = prompt("Please select earth or alien. >>")
+      .trim()
+      .toLowerCase();
     for (var i = 0; i < vaildWords.length; i++) {
       if (userPlanet == vaildWords[i]) {
         break planetLoop;
-      } else {
-        console.error("try again");
       }
     }
+    console.log("try again");
   }
   systemLoop: while (true) {
-    userSystem = prompt("Please select metric or imperial")
+    userSystem = prompt("Please select metric or imperial. >>")
       .trim()
       .toLowerCase();
     for (var i = 0; i < vaildWords.length; i++) {
       if (userSystem == vaildWords[i]) {
         break systemLoop;
-      } else {
-        console.error("try again;");
       }
     }
+    console.log("try again");
   }
   while (true) {
-    userValue = prompt("Please enter a value in the form of a number.")
-      .trim()
-      .toLowerCase();
-    break;
-  }
-}
+    userValue = prompt(
+      "Please enter a value in the form of a number. >>"
+    ).trim();
 
-showUserFactors(userType, userPlanet, userSystem, userValue);
+    if (!isNaN(userValue) && 1000 > userValue > 0) {
+      break;
+    }
+  }
+
+  if (userSystem === "metric") {
+    if (userType === "jump") {
+      userMeasurement = "cm";
+    }
+    if (userType === "weight") {
+      userMeasurement = "kg";
+    }
+  }
+  if (userSystem === "imperial") {
+    if (userType === "jump") {
+      userMeasurement = "in";
+    }
+    if (userType === "weight") {
+      userMeasurement = "lb";
+    }
+  }
+  showUserFactors(userType, userPlanet, userSystem, userValue, userMeasurement);
+}
 
 global.getUserInput = getUserInput;
 
 global.showUserFactors = showUserFactors;
 
 let vaildWords = [
-  "pushup",
+  "pushups",
+  "jump",
   "weight",
   "cm",
   "kg",
