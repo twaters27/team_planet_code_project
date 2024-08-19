@@ -3,21 +3,30 @@ const prompt = require("prompt-sync")();
 const gravityFactors = require("./utils/earthGravityFactors.js");
 const alienFactors = require("./utils/alienGravityFactors.js");
 
-function showUserFactors(system, type, value) {
+function showUserFactors(
+  userType,
+  //   userMeasurement,
+  userPlanet,
+  userSystem,
+  userValue
+) {
+
   let results = {};
   let alienResults = {};
 
   let measurement;
 
   for (let planet in gravityFactors) {
-    results[planet] = parseFloat((gravityFactors[planet] * value).toFixed(2));
+    results[planet] = parseFloat(
+      (gravityFactors[planet] * userValue).toFixed(2)
+    );
   }
   for (let planet in alienFactors) {
     alienResults[planet] = parseFloat(
-      (alienFactors[planet] * value).toFixed(2)
+      (alienFactors[planet] * userValue).toFixed(2)
     );
   }
-  switch (type) {
+  switch (userType) {
     case "jump":
       measurement = "cm";
       break;
@@ -32,22 +41,45 @@ function showUserFactors(system, type, value) {
   }
   for (let planet in gravityFactors) {
     console.log(
-      `Your ${type} on ${planet} is ${results[planet]} ${measurement}`
+      `Your ${userType} on ${userPlanet} is ${userPlanet[planet]} ${userMeasurement}`
     );
   }
 }
 
 function getUserInput() {
-  console.log("Which solar system do you want? 1 or 2?");
-  let userPlanet = prompt(">>");
-  console.log("Enter Type");
-  let userType = prompt(">> ");
-  console.log("Enter Value");
-  let userValue = prompt(">> ");
-
-  showUserFactors(userPlanet, userType, userValue);
+  console.log("pushup, jump or weight?");
+  let userType = prompt(">>").trim().toLowerCase();
+  //   console.log("Which measurement? cm or kg, put reps if you choose pushups");
+  //   let userMeasurement = prompt(">>").trim().toLowerCase();
+  console.log("Which solar system do you want? alien or earth?");
+  let userPlanet = prompt(">>").trim().toLowerCase();
+  console.log("metric or imperial");
+  let userSystem = prompt(">> ").trim().toLowerCase();
+  console.log("How much of the measurement? Please enter a number.");
+  let userValue = prompt(">> ").trim().toLowerCase();
+  //   let isTrue = true;
+  while (true) {
+    if (userType === "pushup" || "jump" || "weight") {
+      break;
+    } else {
+      console.error("Please try again.");
+    }
+  }
 }
+showUserFactors(userType, userPlanet, userSystem, userValue);
+
 global.getUserInput = getUserInput;
 
 global.showUserFactors = showUserFactors;
 
+let vaildWords = [
+  "pushup",
+  "weight",
+  "cm",
+  "kg",
+  "reps",
+  "alien",
+  "earth",
+  "metric",
+  "imperial",
+];
