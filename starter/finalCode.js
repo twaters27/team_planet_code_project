@@ -58,13 +58,10 @@ function getUserInput() {
   console.log("How much of the measurement? Please enter a number.");
   let userValue = prompt(">> ").trim().toLowerCase();
   //   let isTrue = true;
+  let parma1;
   while (true) {
-    if (userType === "pushup" || "jump" || "weight") {
-      break;
-    } else {
-      console.error("Please try again.");
-    }
-  }
+    parma1 = prompt(">>")
+    break;
 }
 showUserFactors(userType, userPlanet, userSystem, userValue);
 
@@ -83,3 +80,4 @@ let vaildWords = [
   "metric",
   "imperial",
 ];
+
