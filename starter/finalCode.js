@@ -4,11 +4,11 @@ const gravityFactors = require("./utils/earthGravityFactors.js");
 const alienFactors = require("./utils/alienGravityFactors.js");
 
 function showUserFactors(
-  userType,
+  type,
   //   userMeasurement,
-  userPlanet,
-  userSystem,
-  userValue
+  planet,
+  system,
+  value
 ) {
 
   let results = {};
@@ -18,15 +18,15 @@ function showUserFactors(
 
   for (let planet in gravityFactors) {
     results[planet] = parseFloat(
-      (gravityFactors[planet] * userValue).toFixed(2)
+      (gravityFactors[planet] * value).toFixed(2)
     );
   }
   for (let planet in alienFactors) {
     alienResults[planet] = parseFloat(
-      (alienFactors[planet] * userValue).toFixed(2)
+      (alienFactors[planet] * value).toFixed(2)
     );
   }
-  switch (userType) {
+  switch (type) {
     case "jump":
       measurement = "cm";
       break;
@@ -41,7 +41,7 @@ function showUserFactors(
   }
   for (let planet in gravityFactors) {
     console.log(
-      `Your ${userType} on ${userPlanet} is ${userPlanet[planet]} ${userMeasurement}`
+      `Your ${type} on ${planet} is ${planet[planet]} ${measurement}`
     );
   }
 }
